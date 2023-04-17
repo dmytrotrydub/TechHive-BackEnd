@@ -1,11 +1,10 @@
 const { PrismaClient } = require('@prisma/client');
 const prisma = new PrismaClient();
-console.log(prisma);
 
 const users = [
-  { id: 1, name: 'Alice', email: 'alice@example.com' },
-  { id: 2, name: 'Bob', email: 'bob@example.com' },
-  { id: 3, name: 'Charlie', email: 'charlie@example.com' },
+  { id: 1, name: 'Alice', email: 'alice@example.com', token: 'tasdhv234jbhsbd' },
+  { id: 2, name: 'Bob', email: 'bob@example.com', token: 'asjhdkas4mahdb' },
+  { id: 3, name: 'Charlie', email: 'charlie@example.com', token: 'asdhabs887312asdjh' },
 ];
 
 async function seed() {
