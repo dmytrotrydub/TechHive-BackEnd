@@ -11,13 +11,29 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model User {
+model Client {
   id    String  @id @default(uuid()) 
   name  String
   email String @unique
   password String @unique
   token String @db.VarChar(500)
   
+}
+
+model Professional {
+  id       String  @id @default(uuid()) 
+  name     String
+  email    String @unique
+  password String
+  avatar String
+  bio String
+  skills   Skill[]
+}
+
+model Skill {
+  id            String @id @default(uuid())
+  name          String
+  professionals Professional[] 
 }
 
 

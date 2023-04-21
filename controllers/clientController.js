@@ -7,7 +7,7 @@ const { v4: uuidv4 } = require('uuid');
 // GET request to retrieve list of active Clients
 exports.getClientsList = async (req, res) => {
   console.log('requested');
-  const users = await prisma.User.findMany();
+  const users = await prisma.Client.findMany();
   res.status(200).send(users);
 };
 
@@ -25,7 +25,7 @@ exports.getSIngleClient = async (req, res) => {
 
 exports.registerNewClient = async (req, res) => {
   // Checking if client with requested credentials exists
-  const clientCheck = await prisma.User.findMany({
+  const clientCheck = await prisma.Client.findMany({
     where: {
       OR: [{ name: req.body.name }, { email: req.body.email }],
     },
@@ -56,11 +56,10 @@ exports.registerNewClient = async (req, res) => {
 
   // DB request for creating user
   try {
-    const createdUser = await prisma.User.create({ data: newClient });
+    const createdUser = await prisma.Client.create({ data: newClient });
 
     res.status(201).json({ message: 'User created successfully', user: createdUser });
   } catch (err) {
-
     res.status(500).json({ message: 'Failed to create a new user' });
   }
 };
