@@ -12,10 +12,12 @@ datasource db {
 }
 
 model User {
-  id    Int    @id @default(autoincrement())
+  id    String  @id @default(uuid()) 
   name  String
   email String @unique
-  token String?
+  password String @unique
+  token String @db.VarChar(500)
+  
 }
 
 

@@ -1,8 +1,9 @@
 require('dotenv').config({ path: './.env' });
 const express = require('express');
 const router = express.Router();
-const usersController = require('../controllers/usersController');
+const clientController = require('../controllers/clientController');
 
-router.get('/', usersController.getUsersList);
+router.get('/', clientController.getClientsList);
+router.post('/register', clientController.registerNewClient);
 
 module.exports = router;
