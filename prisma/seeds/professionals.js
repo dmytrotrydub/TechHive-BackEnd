@@ -2,73 +2,36 @@ const { PrismaClient } = require('@prisma/client');
 const prisma = new PrismaClient();
 
 async function main() {
-  const professionals = [];
-
-  for (let i = 0; i < 5; i++) {
-    const email = `professional${i + 1}@example.com`;
-    const password = 'password123';
-
-    const professional = await prisma.professional.create({
-      data: {
-        name: `Professional ${i + 1}`,
-        email: email,
-        password: password,
-        skills: {
-          connectOrCreate: [
-            {
-              where: {
-                name: 'Laravel',
-              },
-              create: {
-                name: 'Laravel',
-              },
-            },
-            {
-              where: {
-                name: 'React',
-              },
-              create: {
-                name: 'React',
-              },
-            },
-            {
-              where: {
-                name: 'Express',
-              },
-              create: {
-                name: 'Express',
-              },
-            },
-            {
-              where: {
-                name: 'Vue.js',
-              },
-              create: {
-                name: 'Vue.js',
-              },
-            },
-          ],
-        },
-        avatar: 'https://example.com/avatar.png',
-        bio: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed commodo turpis vel diam euismod, vel mattis risus pulvinar.',
+  // Create the professional
+  const professional = await prisma.professional.create({
+    data: {
+      id: '1',
+      name: 'John Doe',
+      email: 'johndoe@example.com',
+      password: 'password123',
+      avatar: 'https://example.com/avatar.jpg',
+      bio: 'I am a professional with a diverse set of skills',
+      title: 'Web Developer',
+      token: 'ajshdbakjbdLJHBLUYbwlkJWLJ@#',
+      skills: {
+        create: [
+          { name: 'Web Development' },
+          { name: 'Mobile App Development' },
+          { name: 'Database Design' },
+        ],
       },
-      include: {
-        skills: true,
-      },
-    });
+    },
+    include: {
+      skills: true,
+    },
+  });
 
-    professionals.push(professional);
-  }
-
-  console.log('Created professionals:');
-  console.log(professionals);
+  console.log(`Created professional with ID ${professional.id}`);
+  console.log(`Skills: ${JSON.stringify(professional.skills)}`);
 }
 
 main()
-  .catch((e) => {
-    console.error(e);
-    process.exit(1);
-  })
+  .catch((e) => console.error(e))
   .finally(async () => {
     await prisma.$disconnect();
   });

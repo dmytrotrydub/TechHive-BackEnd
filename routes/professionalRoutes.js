@@ -1,7 +1,8 @@
 const express = require('express');
 const router = express.Router();
-const professionalController = require('../controllers/professionalController.js')
-
+const professionalController = require('../controllers/professionalController.js');
 
 // router.get('/', '');
-// router.post('/register', '');
+router.post('/register', professionalController.registerNewProfessional);
+
+module.exports = router;
